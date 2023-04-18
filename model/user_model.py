@@ -1,3 +1,5 @@
+import json
+
 import mysql.connector
 
 
@@ -11,9 +13,12 @@ class user_model():
         except:
             print("error")
 
-    def user_getall_model(self):
+    def user_getall_model(self):  #read operation
         self.cur.execute("SELECT * FROM users")
         result = self.cur.fetchall()
-        print(result)
+        if len(result)>0: #if dictionary contains more then 1 value function
+         return json.dumps(result)
+        else:
+            return "NO DATA FOUND" #if we delete data from mysql database
         # query execution code
-        return "this is user_signup_model"
+
