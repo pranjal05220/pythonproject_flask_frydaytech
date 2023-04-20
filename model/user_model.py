@@ -31,3 +31,11 @@ class user_model():
     def user_update_model(self, data):  # read operation
         self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}', role='{data['role']}', password'{data['password']}'WHERE id='{data['id']}' )")
         return "user updated successully"
+
+    def user_delete_model(self, id):  # read operation
+        self.cur.execute(f"DELETE FROM users WHERE id={id}")
+        if self.cur.rowcount>0:
+            return "user deleted successully"
+        else:
+            return "nothing to delete"
+
