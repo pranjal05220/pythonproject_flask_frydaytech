@@ -8,6 +8,7 @@ class user_model():
         try:
             self.con = mysql.connector.connect(host="localhost", user="root", password="pass123",
                                                database="flask_tutorial")
+            self.con.autocommit = True
             self.cur = self.con.cursor(dictionary=True)
             print("connection done")
         except:
@@ -22,3 +23,11 @@ class user_model():
             return "NO DATA FOUND" #if we delete data from mysql database
         # query execution code
 
+    def user_addone_model(self, data):  # read operation
+        self.cur.execute(f"INSERT INTO users(name, email, phone, role, password) VALUES('{data['name']}', '{data['email']}', '{data['phone']}', '{data['role']}', '{data['password']}' )")
+        # print(data['email'])
+        return "user addded successully"
+
+    def user_update_model(self, data):  # read operation
+        self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}', role='{data['role']}', password'{data['password']}'WHERE id='{data['id']}' )")
+        return "user updated successully"
