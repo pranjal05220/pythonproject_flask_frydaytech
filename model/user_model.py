@@ -19,7 +19,9 @@ class user_model():
         result = self.cur.fetchall()
         if len(result)>0: #if dictionary contains more then 1 value function
          #return json.dumps(result)
-          return make_response({"payload":result}, 200)
+         res = make_response({"payload": result}, 200)
+         res.headers['Access-Control-Allow-Origin'] = "*"
+         return res
         else:
             #return "NO DATA FOUND" #if we delete data from mysql database
         # query execution code
