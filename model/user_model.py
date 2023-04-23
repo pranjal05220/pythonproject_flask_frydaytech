@@ -18,24 +18,25 @@ class user_model():
         self.cur.execute("SELECT * FROM users")
         result = self.cur.fetchall()
         if len(result)>0: #if dictionary contains more then 1 value function
-         return json.dumps(result)
+         #return json.dumps(result)
+          return {"payload":result}
         else:
-            return "NO DATA FOUND" #if we delete data from mysql database
+            #return "NO DATA FOUND" #if we delete data from mysql database
         # query execution code
-
+            return {"message": "NO DATA FOUND"}
     def user_addone_model(self, data):  # read operation
         self.cur.execute(f"INSERT INTO users(name, email, phone, role, password) VALUES('{data['name']}', '{data['email']}', '{data['phone']}', '{data['role']}', '{data['password']}' )")
         # print(data['email'])
-        return "user addded successully"
+        return {"message": "USER ADDED SUCCESSFULLY"}
 
     def user_update_model(self, data):  # read operation
         self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}', role='{data['role']}', password'{data['password']}'WHERE id='{data['id']}' )")
-        return "user updated successully"
+        return {"message": "USER UPDATED SUCCESSFULLY"}
 
     def user_delete_model(self, id):  # read operation
         self.cur.execute(f"DELETE FROM users WHERE id={id}")
         if self.cur.rowcount>0:
-            return "user deleted successully"
+            return {"message": "USER DELETED SUCCESSFULLY"}
         else:
-            return "nothing to delete"
+            return {"message": "NOTHING TO DELETE"}
 
